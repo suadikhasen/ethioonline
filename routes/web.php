@@ -44,4 +44,8 @@ Route::prefix('Organization')->name('Organization.')->middleware('auth')->group(
 
 		Route::post('/Register','Organization\RegistrationController@Register')->name('Register');
 		Route::get('/Resend_Email/{username}','Organization\RegistrationController@Resend_Email')->name('Resend_Email');
+
+		Route::get('/Show_Start_Exam_Form','Organization\ExamController@Show_Start_Exam_Form')->name('Show_Start_Exam_Form')->middleware('start_exam');
+
+		Route::post('/Start_Exam','Organization\ExamController@Start_Exam')->name('Start_Exam')->middleware('start_exam');
 });

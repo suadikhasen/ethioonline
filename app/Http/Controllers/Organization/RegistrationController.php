@@ -102,7 +102,6 @@ class RegistrationController extends Controller
 
     public function Resend_Email($username){
         $Resend_Email = RegistrationTool::Resend_Email($username);
-        
             return redirect()->route('Organization.Registration')->with('mail_resend_success','We Resend Username and Password');
         
 

@@ -2,6 +2,9 @@
 @section('sub_content')
 @parent
 <div class="container-fluid offset-1">
+	@if(Session::has('exam_started'))
+	 <div class="alert alert-danger bg-danger">{{Session::get('exam_started')}}</div>
+	@endif
 	<a href="{{route('Organization.Show_Create_Question_Form')}}">Add Question</a>
 	@isset($questions)
 	 @foreach($questions as $question)

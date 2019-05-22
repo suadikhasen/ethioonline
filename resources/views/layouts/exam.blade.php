@@ -14,7 +14,7 @@
     		</li>
 
     		<li class="nav-item">
-    			<a href="#" class="nav-link">Start Exam</a>
+    			<a href="{{route('Organization.Show_Start_Exam_Form')}}" class="nav-link">Start Exam</a>
     		</li>
 
     		<li class="nav-item">

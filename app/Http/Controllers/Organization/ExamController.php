@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use App\Organization\Exam;
+use App\Organization\ExamTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Http\Controllers\CommonTask\QuestionFetchingController;
+use App\Http\Controllers\CommonTask\AvailabilityController;
 
 class ExamController extends Controller
 {   
@@ -106,6 +108,57 @@ class ExamController extends Controller
     	}
 
     	
+    }
+
+    public function Show_Start_Exam_Form(){
+       $exam_available=1;
+       return view('organization.show_start_exam_form',['exam_available'=>$exam_available]);
+    }
+   
+   //function for exam time starting
+    public function Start_Exam(Request $request){
+       $request->validate([
+        'waiting_time'=>'required|integer|gt:0',
+        'exam_time_in_hour'=>'required|integer|gte:0',
+        'exam_time_in_minute'=>'required|integer|gte:0',
+       ]);
+
+
+       $exam_code=AvailabilityController::Exam_Code();
+       $waiting_time=$request['waiting_time'];
+       $exam_time_in_hour=$request['exam_time_in_hour'];
+       $exam_time_in_minute=$request['exam_time_in_minute'];
+       
+
+       $now =  Carbon::now()->toImmutable();
+       $add_exam_time = new ExamTime();
+       $add_exam_time->exam_code=$exam_code;
+       $add_exam_time->pre_begining =$now;
+       
+       // asigning variable to begning time
+       $begning_time=$now->addMinutes($waiting_time);
+
+       //add values of time to database
+       $add_exam_time->begning=$begning_time;
+
+       
+       $time_ending_hour=$begning_time->addHours($exam_time_in_hour);
+       $time_ending_minute_hour=$time_ending_hour->addMinutes($exam_time_in_minute);
+
+       $add_exam_time->ending=$time_ending_minute_hour;
+
+       $save_exam = $add_exam_time->save();
+
+       if ($save_exam) {
+         $exam_available=1;
+         return redirect()->route('Organization.Exam_Home');
+          
+       }
+
+       
+
+
+       
     }
 
 
