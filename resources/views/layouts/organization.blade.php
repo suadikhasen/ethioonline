@@ -47,10 +47,61 @@
     			<a href="#" class="nav-link">Profile</a>
     		</li>
     	</ul>
+        @if($exam_availability_checker==true)
+          <ul class="navbar-nav ml-5">
+           <li class="nav-item text-white" id="count_down_timer"></li>
+        </ul>
+        @endif
+        
     </div>
 </nav>
+
   @yield('content')
 	  <script type="text/javascript" src="{{asset('/jquery/dist/jquery.js')}}"></script>
 	  <script type="text/javascript" src="{{asset('/bootstrap/dist/js/bootstrap.js')}}"></script>
+      
+         @if($exam_availability_checker==true)
+           <script type="text/javascript">
+             var waitingtime  = {{$pre_begning}};
+             var exam_time = {{$begning}};
+             var dist;    
+             var recursion =  setInterval(function()
+               { 
+                       
+
+                    if (waitingtime >0) {
+                        dist=waitingtime;
+                        waitingtime--;
+                    }
+
+                    else {
+                        dist = exam_time;
+                        exam_time--;
+                    }
+
+
+                    var hour = Math.floor((dist%(60*60*24))/(60*60));
+                    var minute = Math.floor((dist%(60*60))/(60));
+                    var second =dist%60;
+
+                    
+                   
+
+                    document.getElementById("count_down_timer").innerHTML=hour + " " + minute +" " + second ;
+                  
+
+                  if(dist <=0) {
+                      clearInterval(recursion);
+                    document.getElementById("count_down_timer").innerHTML="Exam Completed";
+                  }
+
+              },1000);
+
+                
+
+           </script>
+          
+         @endif
+              
 </body>
 </html>

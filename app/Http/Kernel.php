@@ -62,6 +62,10 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'exam_created'=>\App\Http\Middleware\ethioonline\current_exam_check::class,
         'start_exam'=>\App\Http\Middleware\ethioonline\start_exam_control::class,
+        'CheckIfExamCodeEntering'=>\App\Http\Middleware\ethioonline\CheckIfExamCodeEntering::class,
+        'ExamTakerGuest'=>\App\Http\Middleware\ethioonline\ExamTakerGuest::class,
+        'ExamTakerAuth'=>\App\Http\Middleware\ethioonline\ExamTakerAuth::class,
+
     ];
 
     /**

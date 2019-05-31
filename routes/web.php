@@ -48,4 +48,27 @@ Route::prefix('Organization')->name('Organization.')->middleware('auth')->group(
 		Route::get('/Show_Start_Exam_Form','Organization\ExamController@Show_Start_Exam_Form')->name('Show_Start_Exam_Form')->middleware('start_exam');
 
 		Route::post('/Start_Exam','Organization\ExamController@Start_Exam')->name('Start_Exam')->middleware('start_exam');
+		
+		Route::get('/Make_Attended/{username}',
+			'Organization\AttendanceController@make_attended')->name('Make_Attended');
+
+		Route::get('/Remove_Attendance{username}','Organization\AttendanceController@Remove_Attendance')->name('Remove_Attendance');
+		Route::get('/Score_Board','Organization\ScoreBoardController@index')->name('Score_Board');
+
+		
+});
+
+Route::get('/Exam_Taker_login',      'ExamTaker\LoginController@index')->name('Exam_Taker_login');
+
+Route::post('/Exam_Taker_login',      'ExamTaker\LoginController@authentication')->name('Exam_Taker_Authentication');
+//Exam Taker Routes after authentication
+Route::middleware('ExamTakerAuth')->prefix('Exam_Taker')->name('Exam_Taker.')->group(function(){
+
+    Route::get('/Exam_Home','ExamTaker\ExamHomeController@index')->name('Exam_Home');
+
+    Route::get('/Logout','ExamTaker\ExamHomeController@Logout')->name('Logout');
+    
+	Route::post('/Submit_Answer','ExamTaker\ExamAnswerController@Submit_answer')->name('Submit_Answer');
+	Route::get('/Profile','ExamTaker\ProfileController@show_profile')->name('Profile');
+
 });

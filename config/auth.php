@@ -46,6 +46,12 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'exam_taker'=>[
+         'driver'=>'session',
+         'provider'=>'exam_takers',
+
+        ],
     ],
 
     /*
@@ -70,6 +76,12 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+
+        'exam_takers'=>[
+          'driver'=>'eloquent',
+          'model'=>App\Organization\ExamTaker::class,
+
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

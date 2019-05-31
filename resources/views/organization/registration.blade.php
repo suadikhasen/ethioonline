@@ -17,22 +17,39 @@
 				<th>Gender</th>
 				<th>email</th>
 				<th>resend email</th>
+				<th>Attendance</th>
+				
 			</tr>
 		</thead>
 		<tbody>
 			@foreach($registered_user as $single_user)
                  <tr>
-                 	<td>{{$count}}</td>
+                 	<td>
+                 		@if($registered_user->onFirstPage())
+                 		{{($loop->iteration)}}
+                 		@else
+                 		 {{($registered_user->currentPage()-1)*$registered_user->perPage()+$loop->iteration}}
+                 		@endif
+                 	</td>
                  	<td>{{$single_user->first_name.' '.$single_user->last_name.' '.$single_user->grand_name}}</td>
                  	<td>{{$single_user->gender}}</td>
                  	<td>{{$single_user->email}}</td>
                  	<td><a href="{{route('Organization.Resend_Email',['username'=>$single_user->username])}}">Resend</a></td>
+                 	<td>  
+                 		@attendance_organization($single_user->username)
+                 		  <a href="{{route('Organization.Make_Attended',['username'=>$single_user->username])}}" class="btn btn-info">Attend</a>
+		                @else
+		                   <span>attended</span>
+		                 	<span class="text-success"><a href="{{route('Organization.Remove_Attendance',['username'=>$single_user->username])}}" 
+		                 		>remove</a></span>
+		                @endattendance_organization
+		            </td>
                  </tr>
-                 @php $count++ @endphp
+                 
 	        @endforeach
 		</tbody>
 	</table>
-	 <p>{{$registered_user->links()}}</p>
+	 <p>{{$registered_user->onEachSide(3)->links()}}</p>
 	@endif
 </div>
 @endsection

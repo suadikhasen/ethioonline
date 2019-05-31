@@ -3,11 +3,15 @@
 namespace App\Organization;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\ExamTaker\Answer;
 
-class ExamTaker extends Model
-{
+class ExamTaker extends Authenticatable
+{   
+    protected $guards = "exam_taker";
+
     protected $table="exam_taker";
-    protected $primaryKey="username";
+    protected $primaryKey="exam_code";
     protected $keyType="string";
     public $incrementing=false;
 
@@ -15,7 +19,14 @@ class ExamTaker extends Model
       'password',
       'username',
       'exam_code',
-
+  
     ];
+  
+    public function Answer(){
+       return $this->belongsToMany(Answer::class,'exam_questions','exam_code','exam_code','exam_code','exam_code');
+    }
+  
+
+
     
 }

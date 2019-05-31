@@ -21,10 +21,14 @@ class RegistrationController extends Controller
 
     public function Registration(){
     	$exam_available=1;
-        $exam_code=AvailabilityController::Exam_Code();
-        $registered_user=ExamTaker::where('exam_code','=',$exam_code)->paginate(3);
-        $count_registered_user=1;
-    	return view('organization.registration',['exam_available'=>$exam_available,'registered_user'=>$registered_user,'count'=>$count_registered_user]);
+      $exam_code=AvailabilityController::Exam_Code();
+      $registered_user=ExamTaker::where('exam_code','=',$exam_code)->paginate(3);
+        
+        
+    	return view('organization.registration',[
+        'exam_available'=>$exam_available,
+        'registered_user'=>$registered_user,
+      ]);
     }
     
     public function Show_Registration_Form(){

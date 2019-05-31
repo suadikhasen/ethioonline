@@ -9,9 +9,8 @@ use App\Organization\Exam;
 
 class QuestionFetchingController extends Controller
 {
-    public static function Fetch_Question(){
-      $exam_code=AvailabilityController::Exam_Code();
-      $questions=Exam::find($exam_code)->Question()->paginate(3);
+    public static function Fetch_Question($exam_code){
+      $questions=Exam::findOrFail($exam_code)->Question()->paginate(3);
       return $questions;
 
     } 

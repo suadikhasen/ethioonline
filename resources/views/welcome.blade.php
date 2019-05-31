@@ -44,7 +44,16 @@
             <a class="nav-link js-scroll-trigger" href="#portfolio">Contact Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{{route('login')}}">Login</a>
+            <li class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Login
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{route('Exam_Taker_login')}}">login as exam taker</a>
+                    <a class="dropdown-item" href="{{route('login')}}">login as exam owner</a>
+                </div>
+            </li>
+            
           </li>
         </ul>
       </div>

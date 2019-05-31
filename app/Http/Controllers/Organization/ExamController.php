@@ -87,7 +87,7 @@ class ExamController extends Controller
 
     public function Exam_Home(){
 
-        $email=Auth::user()->email;
+      $email=Auth::user()->email;
     	$check_progress_existence=Exam::where([
         ['exam_owner','=',$email,],
         ['progress','=',true]
@@ -96,9 +96,10 @@ class ExamController extends Controller
 
     	$exam_available=1;
     	$exam_unavailable=0;
+      $exam_code = AvailabilityController::Exam_Code();
 
     	if($check_progress_existence!=NULL){
-    		$questions=QuestionFetchingController::Fetch_Question();
+    		$questions=QuestionFetchingController::Fetch_Question($exam_code);
             return view('organization.exam_home')->with(['exam_available'=>$exam_available,'questions'=>$questions]);
     	}
 

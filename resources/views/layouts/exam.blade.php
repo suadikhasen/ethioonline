@@ -21,9 +21,11 @@
     			<a href="{{route('Organization.Registration')}}" class="nav-link ">Registration</a>
     		</li>
 
-    		<li class="nav-item">
-    			<a href="#" class="nav-link">Setting</a>
-    		</li>
+            <li class="nav-item">
+                <a href="{{route('Organization.Score_Board')}}" class="nav-link">Score Board</a>
+            </li>
+
+    		
     	</ul>
     </div>
  </nav>
